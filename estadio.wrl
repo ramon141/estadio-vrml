@@ -1,0 +1,361 @@
+#VRML V2.0 utf8
+
+# Campo
+Transform {
+  children [
+    Shape {
+      geometry Box {
+        size 11 0.1 6.8
+      }
+
+      appearance Appearance {
+        texture ImageTexture {
+          url "texturas/campo_de_futebol_2.jpg"
+        }
+      }
+    }
+  ]
+}
+
+# Trave Direita
+#      _____________        --
+#     |             |        |
+#     |             |        | 2.44m
+#     |             |        |
+#     \-------------/       --
+#           7.32m
+
+
+# Dois cilindros (da mesma altura da trave) ficam atrás de cada lado da trave
+# Para servirem de apoio para a malha
+      
+Transform {
+  # Tamanho do da parte 
+  # Como a distância entre traves é 7.32m (0.732 em escala) o Z desta trave deve ser:
+  # 0.732 / 2 - 0.01016 (espessura da trave) = 0.35584
+  # E a de outro lado fica -0.35584. Centralizado a trave e mantendo a distância real.
+  translation 5 0.16 0.35584
+  children [
+
+#     |
+#     |
+#     |
+    Shape {
+      geometry Cylinder {
+        radius 0.01016 # Tamanho original, 4 pol
+        height 0.244 #2.44m em escala 1/10
+      }
+
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 1 1
+        }
+      }
+    }
+  ]
+}
+
+Transform {
+  translation 5 0.16 -0.35584
+  children [
+
+#                   |
+#                   |
+#                   |
+    Shape {
+      geometry Cylinder {
+        radius 0.01016 # Tamanho original, 4 pol
+        height 0.244
+      }
+
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 1 1
+        }
+      }
+    }
+  ]
+}
+
+Transform {
+  rotation 1 0 0 1.5708
+  translation 5 0.28 0
+  children [
+#        Travessão
+#      _____________   
+    Shape {
+      geometry Cylinder {
+        radius 0.01016 # Tamanho original, 4 pol
+        height 0.732
+      }
+
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 1 1
+        }
+      }
+    }
+  ]
+}
+
+
+Transform {
+# Barra traseira de suporte a malha
+# Como elas são da mesma altura da trave, então altura = 2.44m
+# Não há informação da distancia entre elas e a trave, então utilizei algumas imagens,
+# e escalas para calcular em média a distância (que foi de 1.30m no eixo Z)
+
+# Visão lateral da trave:
+
+#   0.9m
+# /------\                 
+# |-------               | --|
+# |       \              |   |
+# |         \            |   |
+# |           \          |   | 2.44m
+# |             \        | --|
+# \-------------/\-------/ --|
+#       2m         1.30m
+
+
+# O ponto Z que a trave ficará é:
+#  0.35584 + 0.36(chutei o valor)
+
+# O ponto X que a trave ficará é:
+#  5(X da trave) + 0.2(profundidade da trave) + 0.13(distancia do final da trave até a barra) + 2*0.01016(espessura dos canos) = 5.35032
+
+  translation 5.35032 0.16 0.36
+  children [
+    Shape {
+      geometry Cylinder {
+        radius 0.01016 # Tamanho original, 4 pol
+        height 0.244
+      }
+
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 1 1
+        }
+      }
+    }
+  ]
+}
+
+Transform {
+# Barra traseira de suporte a malha
+# Como elas são da mesma altura da trave, então altura = 2.44m
+# Não há informação da distancia entre elas e a trave, então utilizei algumas imagens,
+# e escalas para calcular em média a distância (que foi de 1.30m no eixo Z)
+
+# Visão lateral da trave:
+
+#   0.9m
+# /------\                 
+# |-------               | --|
+# |       \              |   |
+# |         \            |   |
+# |           \          |   | 2.44m
+# |             \        | --|
+# \-------------/\-------/ --|
+#       2m         1.30m
+
+
+# O ponto Z que a trave ficará é:
+#  0.35584 + 0.36(chutei o valor)
+
+# O ponto X que a trave ficará é:
+#  5(X da trave) + 0.2(profundidade da trave) + 0.13(distancia do final da trave até a barra) + 2*0.01016(espessura dos canos) = 5.35032
+
+  translation 5.35032 0.16 -0.36
+  children [
+    Shape {
+      geometry Cylinder {
+        radius 0.01016 # Tamanho original, 4 pol
+        height 0.244
+      }
+
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 1 1
+        }
+      }
+    }
+  ]
+}
+
+
+# Malha
+# A Malha é dividida em:
+
+# mal. superior
+# /------\                 
+#  _______            --|
+# |#######\             |
+# |#######$$\           | mal. traseira
+# |#######$$$$\         | 
+# |#######$$$$$$\     --|
+
+
+#  Em hashtag (#) malha lateral - uma de cada lado
+#  Em cifrão ($)  malha lateral traseira - uma de cada lado
+
+# Malha Superior:
+# X (apresentado anteriormente) = 0.9m ou 0.09 em escala 1/10
+# Z toda a trave = 7.32m ou 0.732
+# Y um valor para a malha ficar fina
+Transform{
+
+  translation 5.05 0.28 0
+
+  children[
+    Shape{
+      geometry Box {
+        size 0.09 0.01 0.732
+      }
+
+      appearance Appearance{
+        texture ImageTexture {
+          url "texturas/malha_comprida.png"
+          repeatS TRUE
+          repeatT TRUE
+        }
+      }
+    }
+  ]
+}
+
+# Malha traseira
+# |#######\             |
+# |#######$$\           | mal. traseira
+# |#######$$$$\         | 
+# |#######$$$$$$\     --|
+
+# Como é observado na figura acima a malha traseira é íngreme
+# E para calcular seu tamanho deve-se utilizar o teorema de pitágoras:
+
+#       |\
+#       | \
+# 2.44m |  \  X
+#       |   \
+#       |----\
+#        1.1
+
+# X² = (2.44)² + (1.1)²
+# X² = 2.6764902391m em escala 0.26764902391
+
+Transform{
+
+  rotation 0 0 1 -0.959931
+  translation 5.17 0.17 0
+
+  children[
+    Shape{
+      geometry Box {
+        size 0.26764902391 0.01 0.732
+      }
+
+      appearance Appearance{
+        texture ImageTexture {
+          url "texturas/malha_super_grande.png"
+          repeatS TRUE
+          repeatT TRUE
+        }
+      }
+    }
+  ]
+}
+
+# Malha lateral - Direita
+# Malha traseira
+# |#######\             |
+# |#######$$\           | mal. traseira
+# |#######$$$$\         | 
+# |#######$$$$$$\     --|
+
+# Medidas:
+# Largura = 0.9m = 0.09
+# Altura = 2.44m = 0.244 (altura da trave)
+# Profundidade = Valor pequeno qualquer
+Transform{
+  translation 5.05 0.155 -0.35584 # negócio da trave
+
+  children[
+    Shape{
+      geometry Box {
+        size 0.09 0.244 0.01
+      }
+
+      appearance Appearance{
+        texture ImageTexture {
+          url "texturas/malha_lateral.png"
+          repeatS TRUE
+          repeatT TRUE
+        }
+      }
+    }
+  ]
+}
+
+# Malha lateral - Esquerda
+Transform{
+  translation 5.05 0.155 0.35584 # negócio da trave
+
+  children[
+    Shape{
+      geometry Box {
+        size 0.09 0.244 0.01
+      }
+
+      appearance Appearance{
+        texture ImageTexture {
+          url "texturas/malha_lateral.png"
+          repeatS TRUE
+          repeatT TRUE
+        }
+      }
+    }
+  ]
+}
+
+
+# Linha que liga barra traseira (suporte da malha) e a malha - Direita
+Transform{
+  rotation 0 0 1 1.6057
+  translation 5.22 0.27 -0.35584 # negócio da trave
+
+  children[
+    Shape{
+      geometry Cylinder {
+        radius 0.002
+        height 0.24
+      }
+
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 1 1
+        }
+      }
+    }
+  ]
+}
+
+# Linha que liga barra traseira (suporte da malha) e a malha - Esquerda
+Transform{
+  rotation 0 0 1 1.6057
+  translation 5.22 0.27 0.35584 # negócio da trave
+
+  children[
+    Shape{
+      geometry Cylinder {
+        radius 0.002
+        height 0.24
+      }
+
+      appearance Appearance {
+        material Material {
+          diffuseColor 1 1 1
+        }
+      }
+    }
+  ]
+}
